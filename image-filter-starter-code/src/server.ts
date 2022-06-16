@@ -34,15 +34,15 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 // RESTFUL_API ENDPOINT
   // GET /filteredimage?image_url={{URL}}
   app.get("/filteredimage", async (req, res) => {
-    // validate the image_url query
-      const{image_url}= req.query
+    // extract image_url from request query
+    const image_url:string = req.query.image_url
       if(!image_url){
         return res.status(400).send("image_url is missing")
       }
       try {
     // call filterImageFromURL(image_url) to filter the image and https://sourceforge.net/projects/unxutils/   
         const imagePath= await filterImageFromURL(image_url)
-        return res.sendFile(imagePath, async (error)=>{
+        return res.status(200).sendFile(imagePath, async (error)=>{
           await deleteLocalFiles ([imagePath])
         });
           } catch (error) {
