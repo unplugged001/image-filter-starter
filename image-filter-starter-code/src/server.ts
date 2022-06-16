@@ -33,7 +33,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   
 // RESTFUL_API ENDPOINT
   // GET /filteredimage?image_url={{URL}}
-  app.get("/filteredimage", async (req, res) => {
+  app.get( "/filteredimage/", async (req:express.Request, res:express.Response) => {
     // extract image_url from request query
     const image_url:string = req.query.image_url
       if(!image_url){
